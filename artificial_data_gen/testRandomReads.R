@@ -1,5 +1,5 @@
 data = read.delim("artificialDatasetTemplate.txt", header = TRUE, sep = "\t")
-data <- data[1:5, ]
+data <- data[1:3, ]
 ############################## load libraries ##############################
 library(foreach)
 library(doParallel)
