@@ -1,4 +1,4 @@
-Reads <- function(reps, m, mystring, x, y) {
+Reads <- function(AmpliconID, reps, m, mystring, means, sds, L_q, H_q) {
   resr1 = data.frame()
   resr2 = data.frame()
   if (reps > 0) {
@@ -11,13 +11,17 @@ Reads <- function(reps, m, mystring, x, y) {
       Lltr = rand_start[j] + rand_offset[j] - m + 1
       
       read <- leftToRight_read(L = Lltr, m = m, mystring = mystring)
-      quality <- intToUtf8(round(uniToOthers(x, y, runif(m))))
-      resr1 <- rbind(resr1, data.frame(Sequence = read, Length = nchar(read), Q = quality))
+      quality <- intToUtf8(round(dif_means_gaussian_random_samples(L_q = L_q, H_q = H_q, means = means, sds = sds)))
+      resr1 <- rbind(resr1, data.frame(
+        AmpliconID = paste(AmpliconID, j, "1:N:0:1", sep=" "), 
+        Sequence = read, Length = nchar(read), Q = quality))
       
       
       read <-rightToLeft_read(H = Hrtl, m = m, mystring = mystring)
-      quality <- intToUtf8(round(uniToOthers(x, y, runif(m))))
-      resr2 <- rbind(resr2, data.frame(Sequence = read, Length = nchar(read), Q = quality))
+      quality <- intToUtf8(round(dif_means_gaussian_random_samples(L_q = L_q, H_q = H_q, means = means, sds = sds)))
+      resr2 <- rbind(resr2, data.frame(
+        AmpliconID = paste(AmpliconID, j, "2:N:0:1", sep=" "),
+        Sequence = read, Length = nchar(read), Q = quality))
     }
     return(list(R1 = resr1, R2 = resr2))
   }else {
