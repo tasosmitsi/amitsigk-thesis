@@ -84,7 +84,7 @@ start_time <- Sys.time()
 res <- foreach(i = 1:length(data[,1]), .combine='comb') %dopar% {
   if (data[i, 'MeanCoverage'] > 0) {
     indexes = list(data.frame(Idx = i, Type = toString(data[i, 'Type'])), data.frame(Idx = i, Type = toString(data[i, 'Type'])))
-    lst <- Reads(AmpliconID = data[i, 'AmpliconID'], reps = data[i, 'MeanCoverage'], mystring = toString(data[i, 'Sequence']), m = m, means = means, sds = sds, L_q, H_q)
+    lst <- Reads(AmpliconID = data[i, 'AmpliconID'], reps = data[i, 'MeanCoverage'], mystring = toString(data[i, 'Sequence']), m = m, i = i, means = means, sds = sds, L_q, H_q)
     mapply(cbind, lst, indexes, SIMPLIFY=FALSE)
   }else{
     list(data.frame(), data.frame())
