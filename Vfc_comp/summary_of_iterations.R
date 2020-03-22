@@ -55,7 +55,6 @@ for (path in paths) {
   assign(tmp, read.delim(path, header = TRUE, sep = "\t"))
   i <- i + 1
 }
-rm(nam)
 rm(path)
 dflist <- sort(dflist, decreasing = FALSE)
 ############################## main ##############################
