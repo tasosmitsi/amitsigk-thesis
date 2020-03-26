@@ -3,7 +3,7 @@ library(foreach)
 library(doParallel)
 library(ChIPsim)
 library(stringr)
-
+library(Biostrings, quietly = TRUE)
 ############################## load sources ##############################
 source("lib/overlapedReads/leftToRight_read.R")
 source("lib/overlapedReads/rightToLeft_read.R")
@@ -18,7 +18,7 @@ cores = 4L
 
 registerDoParallel(cores)
 #length(i <- grep("[AGTC]+$", data[['Sequence']]))
-
+compress_out <- TRUE
 ############################## srtuctures and data init ##############################
 m = 150L
 x = seq(1,1000,by=1)
@@ -99,8 +99,21 @@ res[["R2"]][z] <- lapply(res[["R2"]][z], as.character)
 rm(z)
 stopImplicitCluster()
 
-writeFASTQ(res[["R1"]][["Sequence"]], res[["R1"]][["Q"]], res[["R1"]][["AmpliconID"]], file="E:/WSL-shared/test/r1.fastq")
-writeFASTQ(res[["R2"]][["Sequence"]], res[["R2"]][["Q"]], res[["R2"]][["AmpliconID"]], file="E:/WSL-shared/test/r2.fastq")
+# writeFASTQ(res[["R1"]][["Sequence"]], res[["R1"]][["Q"]], res[["R1"]][["AmpliconID"]], file="E:/WSL-shared/test/r1.fastq")
+# writeFASTQ(res[["R2"]][["Sequence"]], res[["R2"]][["Q"]], res[["R2"]][["AmpliconID"]], file="E:/WSL-shared/test/r2.fastq")
+name.R1 <- if (compress_out) "r1.compressed.fastq" else "r1.fastq"
+name.R2 <- if (compress_out) "r2.compressed.fastq" else "r2.fastq"
 
+seqs <- c(res[["R1"]][["Sequence"]])
+names(seqs) <- c(res[["R1"]][["AmpliconID"]])
+seqs <- BStringSet(seqs)
+quals <- c(res[["R1"]][["Q"]])
+quals <- BStringSet(quals)
+writeXStringSet(seqs, name.R1, format = "fastq", qualities = quals, compress = compress_out)
 
-message("Data random readings ends in ", Sys.time() - start_time, " mins", sep="")
+seqs <- c(res[["R2"]][["Sequence"]])
+names(seqs) <- c(res[["R2"]][["AmpliconID"]])
+seqs <- BStringSet(seqs)
+quals <- c(res[["R2"]][["Q"]])
+quals <- BStringSet(quals)
+writeXStringSet(seqs, name.R2, format = "fastq", qualities = quals, compress = compress_out)

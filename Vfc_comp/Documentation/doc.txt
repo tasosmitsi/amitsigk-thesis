@@ -1,0 +1,35 @@
+1) isFalsePositive = NA -> Υπάρχει στο template αλλά δεν βρέθηκε από GATK
+2) isFalsePositive = FALSE -> Υπάρχει στο template και έγινε ταύτηση με κάποιο στο GATK καί μεσα στα όρια θέσης και ταύτηση μετάλαξης
+3) isFalsePositive = FALSE && τα δεδομένα .template είναι κενά -> Εύρεση του GATK βρέθηκε μέσα στα όρια κάποιου στο template αλλά δεν έγινε ταύτηση μετάλαξης
+4) isFalsePositive = TRUE -> Βρέθηκε στο GATK αλλά δεν υπάρχει πουθενά στο template τουλάχιστον μέσα στα όρια θέσης μιας εγγραφής του
+
+
+
+Conclusions
+Βρέθηκε ένα μέσα στα όρια αλλά έιναι λάθος (3)
+Βρέθηκε κάποιο τελείως εκτός ορίων του template (4)
+Δεν βρέθηκε από το εργαλείο ενώ υπάρχει στο template (1)
+Έγινε πλήρης ταύτηση (2)
+
+There was a mutex is a positive class
+
+
+
+
+Μία μετάλαξη που βρέθηκε και υπήρχε έιναι 		True Positive (TP)	(2)
+Μία μετάλαξη που βρέθηκε ενώ δεν υπήρχε έιναι 	False Positive (FP)	(4καθόλου)(3λάθος)
+Μία μετάλαξη που δεν βρέθηκε αλλά υπήρχε 		False Negative (FN)	(1)
+Μία μετάλαξη που δεν βρέθηκε και δεν υπήρχε 	True Negative (TN)	()
+
+The AD values are unfiltered, but they do not include uninformative reads
+The DP does include uninformative reads
+	FORMAT level DP is filtered
+	INFO DP is not filtered
+	
+We call a read “uninformative” when it passes the quality filters, but the likelihood of the most likely allele given the read is not significantly larger than the likelihood of the second most likely allele given the read. Specifically, the difference between the Phred scaled likelihoods must be greater than 0.2 to be considered significant. In other words, that means the most likely allele must be 60% more likely than the second most likely allele.
+
+Γενικό συμπέρασμα για το Info.DP : ένα 63% των έγκυρων εγγραφών έχουν PerDiffInfo.DP < 20%
+
+Rscript  main.R --vcf.file.path=/mnt/c/Users/tasos/Documents/GitProjects/amitsigk-thesis/Vfc_comp/SampleName_GATK_4_1_0_0_variants.results.table --template.file.path=/mnt/c/Users/tasos/Documents/GitProjects/amitsigk-thesis/Vfc_comp/artificialDatasetTemplate.txt --coordinates.file.path=/mnt/c/Users/tasos/Documents/GitProjects/amitsigk-thesis/Vfc_comp/Coordinates.txt
+
+./VcfComp.sh -v /home/tasos51/WSL-shared/MyArtData/SampleName_GATK_4_1_0_0_variants.vcf -t /mnt/c/Users/tasos/Documents/GitProjects/amitsigk-thesis/Vfc_comp/artificialDatasetTemplate.txt -c /mnt/c/Users/tasos/Documents/GitProjects/amitsigk-thesis/Vfc_comp/Coordinates.txt -o SampleName.results.table -l def
