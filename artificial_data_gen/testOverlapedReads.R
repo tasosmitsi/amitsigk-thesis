@@ -21,25 +21,31 @@ registerDoParallel(cores)
 compress_out <- TRUE
 ############################## srtuctures and data init ##############################
 m = 150L
-x = seq(1,1000,by=1)
 
-means <- dnorm(x, 500, 500)
-means <- means[450:599]
-x = seq(1,m,by=1)
+# realistic Quality, quote if needs
+# x = seq(1,1000,by=1)
+# 
+# means <- dnorm(x, 500, 500)
+# means <- means[450:599]
+# x = seq(1,m,by=1)
+# 
+# sds = seq(0.8 , 5, by = 0.0279)
+# sds = sds[1:150]
+# kati = 700 / max(means) 
+# means <- (means * kati)-630
+####################################
 
-sds = seq(0.8 , 5, by = 0.0279)
-sds = sds[1:150]
-kati = 700 / max(means) 
-means <- (means * kati)-630
+# best Quality, quote if needs
+means <- rep(63,m)
+sds <- rep(0.1,m)
 max(means)
-plot(x,means)
-
+##############################
 L_q = 33
 H_q = 75
 
 
 data = read.delim("artificialDatasetTemplate.txt", header = TRUE, sep = "\t")
-data <- data[1:3, ]
+data <- data[1:2, ]
 
 ############################## main start ##############################
 start_time <- Sys.time()
@@ -101,8 +107,8 @@ stopImplicitCluster()
 
 # writeFASTQ(res[["R1"]][["Sequence"]], res[["R1"]][["Q"]], res[["R1"]][["AmpliconID"]], file="E:/WSL-shared/test/r1.fastq")
 # writeFASTQ(res[["R2"]][["Sequence"]], res[["R2"]][["Q"]], res[["R2"]][["AmpliconID"]], file="E:/WSL-shared/test/r2.fastq")
-name.R1 <- if (compress_out) "r1.compressed.fastq" else "r1.fastq"
-name.R2 <- if (compress_out) "r2.compressed.fastq" else "r2.fastq"
+name.R1 <- if (compress_out) "r1.compressed.fastq.gz" else "r1.fastq"
+name.R2 <- if (compress_out) "r2.compressed.fastq.gz" else "r2.fastq"
 
 seqs <- c(res[["R1"]][["Sequence"]])
 names(seqs) <- c(res[["R1"]][["AmpliconID"]])

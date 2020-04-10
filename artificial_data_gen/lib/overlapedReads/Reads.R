@@ -13,14 +13,14 @@ Reads <- function(AmpliconID, reps, m, i, mystring, means, sds, L_q, H_q) {
       read <- leftToRight_read(L = Lltr, m = m, mystring = mystring)
       quality <- intToUtf8(round(dif_means_gaussian_random_samples(L_q = L_q, H_q = H_q, means = means, sds = sds)))
       resr1 <- rbind(resr1, data.frame(
-        AmpliconID = paste(AmpliconID, i, j, "1:N:0:1", sep=" "), 
+        AmpliconID = paste(AmpliconID, i, j, " 1:N:0:1", sep=""), 
         Sequence = read, Length = nchar(read), Q = quality))
       
       
       read <-rightToLeft_read(H = Hrtl, m = m, mystring = mystring)
       quality <- intToUtf8(round(dif_means_gaussian_random_samples(L_q = L_q, H_q = H_q, means = means, sds = sds)))
       resr2 <- rbind(resr2, data.frame(
-        AmpliconID = paste(AmpliconID, i, j, "2:N:0:1", sep=" "),
+        AmpliconID = paste(AmpliconID, i, j, " 2:N:0:1", sep=""),
         Sequence = read, Length = nchar(read), Q = quality))
     }
     return(list(R1 = resr1, R2 = resr2))
