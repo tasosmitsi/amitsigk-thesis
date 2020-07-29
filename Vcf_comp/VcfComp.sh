@@ -27,4 +27,4 @@ done
 
 gatk VariantsToTable -V $vcf -F CHROM -F POS -F REF -F ALT -F QUAL -F DP -F ECNT -F MBQ -F MFRL -F MMQ -F MPOS -F POPAF -F TLOD -GF GT -GF AD -GF AF -GF DP -GF F1R2 -GF F2R1 -GF SB -O $outName 
 
-Rscript  main.R --vcf.file.path=$outName --template.file.path=$template --coordinates.file.path=$coordinates --results.folder.name=$resName
+Rscript  VcfComp.R --vcf.file.path=$outName --template.file.path=$template --coordinates.file.path=$coordinates --results.folder.name=$resName

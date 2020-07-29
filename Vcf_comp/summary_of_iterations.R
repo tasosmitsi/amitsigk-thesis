@@ -1,6 +1,6 @@
 ############################## load libraries ##############################
 library(optparse, quietly = T, warn.conflicts = F)
-library(stringr)
+library(stringr, quietly = T, warn.conflicts = F)
 
 ############################## load sources ##############################
 #source("lib/.R")
@@ -8,7 +8,7 @@ library(stringr)
 ############################## set arguments ##############################
 option.list <- list(make_option("--project.folder.path", type = "character", default = getwd(), help = "Full path to project folder.", metavar = "character"),
                     make_option("--result.folders.first.delim", type = "character", default = "result", help = "Type the first delimiter of result folders name.", metavar = "character"),
-                    make_option("--columns", type = "character", default = "REF.data,ALT.Data,AF.Template,DiffAF,DP.Template,DiffDP,AD.Template,DiffAD,REF.Template,ALT.Template", help = "Type the column names separated with comma.", metavar = "character"))
+                    make_option("--columns", type = "character", default = "CHROM,POS.Template,REF.Template,ALT.Template,DP.Template,AD.Template,AF.Template,POS.Data,REF.data,ALT.Data,DiffDP,DiffAD,DiffAF,Position.diff", help = "Type the column names separated with comma.", metavar = "character"))
 
 
 
