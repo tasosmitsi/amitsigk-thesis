@@ -1,2 +1,3 @@
 # amitsigk-thesis
-Pattern recognition in somatic mutations
+Design and Implementation of a Methodology for the Evaluation of Somatic Mutation Identification Algorithms
+Mitsigkolas Anastasios THMMY Diploma Thesis
